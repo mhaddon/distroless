@@ -66,3 +66,19 @@ DISTRO_VERSION = {
     for arch in ARCHITECTURES
     for distro_suffix in DISTRO_SUFFIXES
 ]
+
+[
+    container_image(
+        name = ("ruby" if (not mode) else mode[1:]) + "_nonroot_" + arch + distro_suffix,
+        architecture = arch,
+        base = ("ruby" if (not mode) else mode[1:]) + "_root_" + arch + distro_suffix,
+        user = "%d" % NONROOT,
+        workdir = "/home/nonroot",
+    )
+    for mode in [
+        "",
+        ":debug",
+    ]
+    for arch in ARCHITECTURES
+    for distro_suffix in DISTRO_SUFFIXES
+]
