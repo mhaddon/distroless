@@ -33,3 +33,36 @@ DISTRO_VERSION = {
     "_debian10": "2.5",
 }
 
+[
+    container_image(
+        name = ("ruby" if (not mode) else mode[1:]) + "_root_" + arch + distro_suffix,
+        architecture = arch,
+        # Based on //cc so that C extensions work properly.
+        base = "//cc" + (mode if mode else ":cc") + "_root_" + arch + distro_suffix,
+        debs = [
+            DISTRO_PACKAGES[arch][distro_suffix]["libgmp10"],
+            DISTRO_PACKAGES[arch][distro_suffix]["libreadline7"],
+            DISTRO_PACKAGES[arch][distro_suffix]["libyaml-0-2"],
+            DISTRO_PACKAGES[arch][distro_suffix]["rake"],
+            DISTRO_PACKAGES[arch][distro_suffix]["ruby"],
+            DISTRO_PACKAGES[arch][distro_suffix]["rubygems-integration"],
+            DISTRO_PACKAGES[arch][distro_suffix]["ruby-did-you-mean"],
+            DISTRO_PACKAGES[arch][distro_suffix]["ruby-minitest"],
+            DISTRO_PACKAGES[arch][distro_suffix]["ruby-net-telnet"],
+            DISTRO_PACKAGES[arch][distro_suffix]["ruby-power-assert"],
+            DISTRO_PACKAGES[arch][distro_suffix]["ruby-test-unit"],
+            DISTRO_PACKAGES[arch][distro_suffix]["zlib1g"],
+        ] + [DISTRO_PACKAGES[arch][distro_suffix][deb] for deb in DISTRO_DEBS[distro_suffix]],
+        entrypoint = [
+            "/usr/bin/ruby"
+        ],
+        # Use UTF-8 encoding for file system: match modern Linux
+        env = {"LANG": "C.UTF-8"},
+    )
+    for mode in [
+        "",
+        ":debug",
+    ]
+    for arch in ARCHITECTURES
+    for distro_suffix in DISTRO_SUFFIXES
+]
