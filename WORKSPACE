@@ -139,6 +139,21 @@ load(
             "libpython3.5-stdlib",
             "python3.5-minimal",
 
+            #ruby
+            "libgdbm3",
+            "libncurses5",
+            "libruby2.3",
+            "libyaml-0-2",
+            "rake",
+            "ruby",
+            "rubygems-integration",
+            "ruby-did-you-mean",
+            "ruby-minitest",
+            "ruby-net-telnet",
+            "ruby-power-assert",
+            "ruby-test-unit",
+            "ruby2.3",
+
             #dotnet
             "libcurl3",
             "libgssapi-krb5-2",
@@ -245,6 +260,23 @@ load(
             "libncursesw6",
             "python3-distutils",
             "python3.7-minimal",
+
+            #ruby
+            "libgdbm6",
+            "libgdbm-compat4",
+            "libncurses6",
+            "libruby2.5",
+            "libyaml-0-2",
+            "rake",
+            "ruby",
+            "rubygems-integration",
+            "ruby-did-you-mean",
+            "ruby-minitest",
+            "ruby-net-telnet",
+            "ruby-power-assert",
+            "ruby-test-unit",
+            "ruby-xmlrpc",
+            "ruby2.5",
 
             #dotnet
             "libcurl4",
