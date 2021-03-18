@@ -132,6 +132,29 @@ PYTHON27.update({
     for distro in DISTROS
 })
 
+RUBY = {
+    "gcr.io/{PROJECT_ID}/ruby:" + tag_base + "-" + arch: "//experimental/ruby:" + label + "_" + user + "_" + arch + "_debian9"
+    for arch in BASE_ARCHITECTURES
+    for (tag_base, label, user) in [
+        ("latest", "ruby", "root"),
+        ("nonroot", "ruby", "nonroot"),
+        ("debug", "debug", "root"),
+        ("debug-nonroot", "debug", "nonroot"),
+    ]
+}
+
+RUBY.update({
+    "gcr.io/{PROJECT_ID}/ruby-" + distro + ":" + tag_base + "-" + arch: "//experimental/ruby:" + label + "_" + user + "_" + arch + "_" + distro
+    for arch in BASE_ARCHITECTURES
+    for (tag_base, label, user) in [
+        ("latest", "ruby", "root"),
+        ("nonroot", "ruby", "nonroot"),
+        ("debug", "debug", "root"),
+        ("debug-nonroot", "debug", "nonroot"),
+    ]
+    for distro in DISTROS
+})
+
 NODEJS = {
     "gcr.io/{PROJECT_ID}/nodejs:latest-amd64": "//nodejs:nodejs14_amd64_debian9",
     "gcr.io/{PROJECT_ID}/nodejs:latest-arm64": "//nodejs:nodejs14_arm64_debian9",
@@ -253,6 +276,8 @@ ALL.update(CC)
 ALL.update(PYTHON3)
 
 ALL.update(PYTHON27)
+
+ALL.update(RUBY)
 
 ALL.update(NODEJS)
 
