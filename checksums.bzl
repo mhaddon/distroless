@@ -18,9 +18,9 @@ VERSIONS = [
     ("debian10", "buster"),
 ]
 
-DEBIAN_SNAPSHOT = "20210319T212032Z"
+DEBIAN_SNAPSHOT = "20210320T152229Z"
 
-DEBIAN_SECURITY_SNAPSHOT = "20210319T173405Z"
+DEBIAN_SECURITY_SNAPSHOT = "20210320T082329Z"
 
 SHA256s = {
     "amd64": {
@@ -28,7 +28,7 @@ SHA256s = {
             "main": "90ff32c8226b57b879bf6b8c3cfda15e24f2b8c22de28426872f162db4e8d444",
             "backports": "531e9bf9e6c2b35d08e68fb803cb1ea7b211ce81a32c158e6bc5c5f6fab7e491",
             "updates": "b702e0888f32074ee212accbf56c732beacf0d9f570ca082a9c859b23a2596e9",
-            "security": "62c366b310d14cd4c011c748222c056549f0d9374483684313e5b37179aa51ec",
+            "security": "708b5136414aac8135438ad1ad1a857d53682cfd1f29e63417408aa383bc7345",
         },
         "debian10": {
             "main": "e096054471ae9a772fa67006cd0d9a0b125bb30443625fb6b66935e2a9331e98",
@@ -41,7 +41,7 @@ SHA256s = {
             "main": "36521cc720d75810da368854db057b68e0e389b8170611a141cfa4021d03259b",
             "backports": "fb57baff6ad1551e71b27c24f5ca048b635ce510ddbb1472c820e3b788174bf2",
             "updates": "469b19c81185621bb5e90401b508933d7921a6e0b8a10fd5e4b570ae0a83409e",
-            "security": "44b2370a67422ff73a9a525f2e2cbbfb817871b84a4a0f2b09d85e8d9f9d28a1",
+            "security": "2871344d0df32d16db4109fecd864caf8c1b0a34a4e290ba5b2f0e5334a6ddfa",
         },
         "debian10": {
             "main": "e81faa925d91cd54c2bb0d75acf8b9f52e3563ce7d70db72e97a695659b990f2",
@@ -54,7 +54,7 @@ SHA256s = {
             "main": "881d279ca3536ce84dbe9073a150ec2dfba898cb4c5010cbd50d07ba54942b3e",
             "backports": "328f3ec5675e605e7d5f46f6d3fc58a0c45cdeb4907fb3671c03bb9d68b2db51",
             "updates": "df9eadde7ef2ea7c7d3c07417e4924aece7bf3ccad8575e13ae68c71dcaa1d40",
-            "security": "fd9fed1b382df94836bdee95114741a1f7335754469532613e8649a7b9497e4e",
+            "security": "c509ec5494103b23e0a92c9c717f73327168e0e920710a5782ca11c6bb91edb8",
         },
         "debian10": {
             "main": "06a831e6da011809e28563e1ececeb7b92ca27ac38a1471c8144af3604d231ac",

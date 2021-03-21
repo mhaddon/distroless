@@ -140,6 +140,7 @@ load(
             "python3.5-minimal",
 
             #ruby
+            "bundler",
             "libgdbm3",
             "libncurses5",
             "libruby2.3",
@@ -147,10 +148,14 @@ load(
             "rake",
             "ruby",
             "rubygems-integration",
+            "ruby-bundler",
             "ruby-did-you-mean",
             "ruby-minitest",
+            "ruby-molinillo",
+            "ruby-net-http-persistent",
             "ruby-net-telnet",
             "ruby-power-assert",
+            "ruby-thor",
             "ruby-test-unit",
             "ruby2.3",
 
@@ -262,6 +267,7 @@ load(
             "python3.7-minimal",
 
             #ruby
+            "bundler",
             "libgdbm6",
             "libgdbm-compat4",
             "libncurses6",
@@ -270,10 +276,14 @@ load(
             "rake",
             "ruby",
             "rubygems-integration",
+            "ruby-bundler",
             "ruby-did-you-mean",
             "ruby-minitest",
+            "ruby-molinillo",
+            "ruby-net-http-persistent",
             "ruby-net-telnet",
             "ruby-power-assert",
+            "ruby-thor",
             "ruby-test-unit",
             "ruby-xmlrpc",
             "ruby2.5",
