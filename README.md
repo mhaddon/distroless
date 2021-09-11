@@ -1,6 +1,6 @@
 # "Distroless" Docker Images
 
-[![Build Status](https://travis-ci.org/GoogleContainerTools/distroless.svg?branch=master)](https://travis-ci.org/GoogleContainerTools/distroless)
+[![CI Build Status](https://github.com/GoogleContainerTools/distroless/actions/workflows/ci.yaml/badge.svg)](https://github.com/GoogleContainerTools/distroless/actions/workflows/ci.yaml)
 
 "Distroless" images contain only your application and its runtime dependencies.
 They do not contain package managers, shells or any other programs you would expect to find in a standard Linux distribution.
@@ -13,9 +13,35 @@ Restricting what's in your runtime container to precisely what's necessary for y
 and other tech giants that have used containers in production for many years.
 It improves the signal to noise of scanners (e.g. CVE) and reduces the burden of establishing provenance to just what you need.
 
+Distroless images are _very small_.
+The smallest distroless image, `gcr.io/distroless/static`, is around 650 kB.
+That's about 25% of the size of `alpine` (~2.5 MB), and less than 1.5% of the size of `debian` (50 MB).
+
+For example, `gcr.io/distroless/static` is a container image that's much smaller than [this image of a shipping container](https://unsplash.com/photos/bukjsECgmeU).
+It's about 1/3rd the size of all the resources on [this page you're reading right now](https://github.com/GoogleContainerTools/distroless).
+It's very small.
+
 ## How do I use distroless images?
 
 These images are built using the [bazel](https://bazel.build) tool, but they can also be used through other Docker image build tooling.
+
+## How do I verify distroless images?
+
+All distroless images are signed by [cosign](https://github.com/sigstore/cosign).
+We recommend verifying any distroless image you use before building your image.
+
+Once you've installed cosign, you can use the [distroless public key](cosign.pub) to verify any distroless image with:
+
+```
+cat cosign.pub
+-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEWZzVzkb8A+DbgDpaJId/bOmV8n7Q
+OqxYbK0Iro6GzSmOzxkn+N2AKawLyXi84WSwJQBK//psATakCgAQKkNTAA==
+-----END PUBLIC KEY-----
+
+
+cosign verify -key cosign.pub $IMAGE_NAME
+```
 
 ### Entrypoints
 
@@ -52,8 +78,6 @@ Follow these steps to get started:
 * The following images are also published on `gcr.io`, but are considered experimental and not recommended for production usage:
     * [gcr.io/distroless/python2.7-debian10](experimental/python2.7/README.md)
     * [gcr.io/distroless/python3-debian10](experimental/python3/README.md)
-    * [gcr.io/distroless/java/jetty-debian10](java/jetty/README.md)
-    * [gcr.io/distroless/dotnet](experimental/dotnet/README.md)
 * Write a multi-stage docker file.
   Note: This requires Docker 17.05 or higher.
 
@@ -87,7 +111,6 @@ You can find other examples here:
 * [Python 3](examples/python3/Dockerfile)
 * [Golang](examples/go/Dockerfile)
 * [Node.js](examples/nodejs/Dockerfile)
-* [dotnet](examples/dotnet/Dockerfile)
 * [Rust](examples/rust/Dockerfile)
 
 To run any example, go to the directory for the language and run
@@ -98,7 +121,7 @@ docker run -t myapp
 To run the Node.js Express app [node-express](examples/nodejs/node-express) and expose the container's ports:
 
 ```
-npm install #Install express and its transitive dependencies
+npm install # Install express and its transitive dependencies
 docker build -t myexpressapp . # Normal build command
 docker run -p 3000:3000 -t myexpressapp
 ```
@@ -124,7 +147,6 @@ See here for:
 * [Python 3](examples/python3/BUILD)
 * [Golang](examples/go/BUILD)
 * [Node.js](examples/nodejs/BUILD)
-* [dotnet](examples/dotnet/BUILD)
 
 See here for examples on how to complete some common tasks in your image:
 
@@ -140,11 +162,11 @@ For full documentation on how to use Jib to generate Docker images from Maven an
 
 ### Base Operating System
 
-Originally these images were based on Debian 9 (stretch). We now also provide images based on Debian 10 (buster), and tag images with `-debian9` or `-debian10` suffixes. We recommend referencing the appropriate distribution explicitly, since otherwise your build will break when the next Debian version is released.
+Distroless images are based on Debian 10 (buster). Originally these images were based on Debian 9 (stretch), but those images (anything tagged with `*-debian9`) are deprecated and no longer supported. Images are explicitly tagged with `-debian10` suffixes. Specifying an image without the distribution will currently select `-debian10` images, but that can change in the future to a newer version of Debian. It can be useful to reference the appropriate distribution explicitly, to prevent a breakage when the next Debian version is released.
 
 ### CVE and Patching
 
-Distroless tracks Debian 9 (stretch, oldstable currently) and Debian 10. A commit is needed in this repository to update the snapshot version when security fixes are release. Check https://www.debian.org/security/ for any patches to address security issues and update. Check issues and PRs for the patch and update your builds.
+Distroless tracks Debian 10. A commit is needed in this repository to update the snapshot version when security fixes are release. Check https://www.debian.org/security/ for any patches to address security issues and update. Check issues and PRs for the patch and update your builds.
 
 ### Debug Images
 
@@ -182,6 +204,13 @@ BUILD       Dockerfile  hello.py
 
 > Note: [ldd](http://man7.org/linux/man-pages/man1/ldd.1.html) is not installed in the base image as it's a shell script, you can copy it in or download it.
 
+### Who uses Distroless?
+
+- [Kubernetes](https://github.com/kubernetes/enhancements/blob/master/keps/sig-release/1729-rebase-images-to-distroless/README.md), since v1.15
+- [Knative](https://knative.dev)
+- [Tekton](https://tekton.dev)
+
+If your project uses Distroless, send a PR to add your project here!
 
 # Community Discussion
 

@@ -8,7 +8,7 @@ load("@io_bazel_rules_go//go:def.bzl", "go_binary")
 
 NONROOT = 65532
 
-# Replicate everything for debian9 and debian10
+# Replicate everything for all distroless suffixes
 def distro_components(distro_suffix):
     for arch in ARCHITECTURES:
         cacerts(
@@ -65,6 +65,17 @@ def distro_components(distro_suffix):
                 name = "debug_" + user + "_" + arch + distro_suffix,
                 architecture = arch,
                 base = ":base_" + user + "_" + arch + distro_suffix,
+                directory = "/",
+                entrypoint = ["/busybox/sh"],
+                env = {"PATH": "$$PATH:/busybox"},
+                tars = ["//experimental/busybox:busybox_" + arch + ".tar"],
+            )
+
+            # A static debug image with busybox available.
+            container_image(
+                name = "static_debug_" + user + "_" + arch + distro_suffix,
+                architecture = arch,
+                base = ":static_" + user + "_" + arch + distro_suffix,
                 directory = "/",
                 entrypoint = ["/busybox/sh"],
                 env = {"PATH": "$$PATH:/busybox"},
@@ -130,6 +141,13 @@ def distro_components(distro_suffix):
             tags = ["manual", arch],
         )
 
+        container_test(
+            name = "static_debug_" + arch + distro_suffix + "_test",
+            configs = ["testdata/debug.yaml"],
+            image = ":static_debug_root_" + arch + distro_suffix,
+            tags = ["manual", arch],
+        )
+
         ##########################################################################################
         # Check the /etc/os-release contents.
         ##########################################################################################
@@ -151,5 +169,12 @@ def distro_components(distro_suffix):
             name = "static_release_" + arch + distro_suffix + "_test",
             configs = ["testdata/" + distro_suffix[1:] + ".yaml"],
             image = ":static_root_" + arch + distro_suffix,
+            tags = ["manual", arch],
+        )
+
+        container_test(
+            name = "static_debug_release_" + arch + distro_suffix + "_test",
+            configs = ["testdata/" + distro_suffix[1:] + ".yaml"],
+            image = ":static_debug_root_" + arch + distro_suffix,
             tags = ["manual", arch],
         )
