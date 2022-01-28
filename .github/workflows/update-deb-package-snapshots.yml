@@ -13,17 +13,20 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
         
-    - name: Setup Bazel
-      uses: abhinavsingh/setup-bazel@v3
+
+    - name: Set up Go 1.16.x
+      uses: actions/setup-go@v2
       with:
-        version: 3.4.1
+        go-version: 1.16.x
+      id: go
 
     - name: Run update script
       run: ./updateWorkspaceSnapshots.sh
     
     - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v3
+      uses: peter-evans/create-pull-request@7380612b49221684fefa025244f2ef4008ae50ad
       with:
+        token: ${{ secrets.ACTIONS_TOKEN }}
         commit-message: "Bumping packages to latest stable versions"
         title: "Bumping packages to latest stable versions"
         body: "Bumping packages to latest stable versions"

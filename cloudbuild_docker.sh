@@ -35,21 +35,24 @@ for distro_suffix in "" -debian10 -debian11; do
   docker_manifest gcr.io/$PROJECT_ID/base${distro_suffix}:latest "amd64 arm arm64 s390x ppc64le"
   docker_manifest gcr.io/$PROJECT_ID/base${distro_suffix}:debug-nonroot "amd64 arm arm64 s390x ppc64le"
   docker_manifest gcr.io/$PROJECT_ID/base${distro_suffix}:debug "amd64 arm arm64 s390x ppc64le"
-done
 
-for distro_suffix in "" -debian10; do
   docker_manifest gcr.io/$PROJECT_ID/cc${distro_suffix}:nonroot "amd64 arm arm64 s390x ppc64le"
   docker_manifest gcr.io/$PROJECT_ID/cc${distro_suffix}:latest "amd64 arm arm64 s390x ppc64le"
   docker_manifest gcr.io/$PROJECT_ID/cc${distro_suffix}:debug-nonroot "amd64 arm arm64 s390x ppc64le"
   docker_manifest gcr.io/$PROJECT_ID/cc${distro_suffix}:debug "amd64 arm arm64 s390x ppc64le"
 
-  docker_manifest gcr.io/$PROJECT_ID/python2.7${distro_suffix}:latest "amd64 arm64"
-  docker_manifest gcr.io/$PROJECT_ID/python2.7${distro_suffix}:debug "amd64 arm64"
-
   docker_manifest gcr.io/$PROJECT_ID/python3${distro_suffix}:nonroot "amd64 arm64"
   docker_manifest gcr.io/$PROJECT_ID/python3${distro_suffix}:latest "amd64 arm64"
   docker_manifest gcr.io/$PROJECT_ID/python3${distro_suffix}:debug-nonroot "amd64 arm64"
   docker_manifest gcr.io/$PROJECT_ID/python3${distro_suffix}:debug "amd64 arm64"
+done
+
+# java is only multi-arch from debian11 onwards
+for java_version in -base 11 17; do
+  docker_manifest gcr.io/$PROJECT_ID/java${java_version}-debian11:latest "amd64 arm64"
+  docker_manifest gcr.io/$PROJECT_ID/java${java_version}-debian11:nonroot "amd64 arm64"
+  docker_manifest gcr.io/$PROJECT_ID/java${java_version}-debian11:debug "amd64 arm64"
+  docker_manifest gcr.io/$PROJECT_ID/java${java_version}-debian11:debug-nonroot "amd64 arm64"
 done
 
 docker manifest create gcr.io/$PROJECT_ID/nodejs:latest \

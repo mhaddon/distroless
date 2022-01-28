@@ -50,21 +50,25 @@ func main() {
 		packagesXZ, pkgsHash := fetchRemote(src.PackagesXZ)
 		inRelease, _ := fetchRemote(src.InRelease)
 
-		if !strings.Contains(inRelease.String(), pkgsHash) {
+		if !strings.Contains(string(inRelease), pkgsHash) {
 			log.Fatalf("InRelease:%q did not contain valid sha256:%q for PackagesXZ:%q", src.InRelease, pkgsHash, src.PackagesXZ)
 		}
 
-		pkgData, pkgBuf := parsePackageData(packagesXZ, src.PackagesXZ, pkgs)
+		pkgSet, ok := pkgs[src.Release]
+		if !ok {
+			log.Fatalf("No list of packages found for %q", src.Release)
+		}
+		pkgData, pkgBuf := parsePackageData(packagesXZ, src.PackagesXZ, pkgSet)
 		writeDebs(ctx, bucket, pkgData, src.PoolParent)
 		writePackagesFiles(ctx, bucket, pkgBuf, packagesXZ, inRelease, src)
 	}
 }
 
 // return content (in memory) and hex sha256
-func fetchRemote(remote string) (*bytes.Buffer, string) {
+func fetchRemote(remote string) ([]byte, string) {
 	log.Println("Fetching: ", remote)
 	resp, err := http.Get(remote)
-	if err != nil {
+	if err != nil || resp.StatusCode != http.StatusOK {
 		log.Fatal("failed to fetch remote file: ", remote, err)
 	}
 	rc := resp.Body
@@ -79,11 +83,11 @@ func fetchRemote(remote string) (*bytes.Buffer, string) {
 
 	hash := hex.EncodeToString(sha.Sum(nil))
 
-	return &buf, hash
+	return buf.Bytes(), hash
 }
 
-func parsePackageData(pkgBytes *bytes.Buffer, url string, pkgs map[string]bool) ([]map[string]string, *bytes.Buffer) {
-	xzr, err := xz.NewReader(pkgBytes)
+func parsePackageData(pkgBytes []byte, url string, pkgs map[string]bool) ([]map[string]string, []byte) {
+	xzr, err := xz.NewReader(bytes.NewReader(pkgBytes))
 	if err != nil {
 		log.Fatal("failed to open xz reader for package list: ", url, err)
 	}
@@ -103,7 +107,7 @@ func parsePackageData(pkgBytes *bytes.Buffer, url string, pkgs map[string]bool) 
 	if err := filtered.Close(); err != nil {
 		log.Fatal(err)
 	}
-	return pkgData, &buf
+	return pkgData, buf.Bytes()
 }
 
 func writeDebs(ctx context.Context, bucket *storage.BucketHandle, pkgData []map[string]string, srcPoolParent string) {
@@ -131,31 +135,35 @@ func writeDebs(ctx context.Context, bucket *storage.BucketHandle, pkgData []map[
 // 1. Packages.xz: a filtered view of packages that are cached
 // 2. Packages.xz.orig: the original complete packages file from debian (MUST be a superset of Packages.xz)
 // 3. InRelease: signed release info for Packages.xz.orig (MUST be updated if Packages.xz.orig is updated)
-func writePackagesFiles(ctx context.Context, bucket *storage.BucketHandle, pkgBuf *bytes.Buffer, origPkgBuf *bytes.Buffer, inReleaseBuf *bytes.Buffer, src dpkg.PackageIndex) {
+func writePackagesFiles(ctx context.Context, bucket *storage.BucketHandle, pkgBuf []byte, origPkgBuf []byte, inReleaseBuf []byte, src dpkg.PackageIndex) {
 	// write Packages.xz
-	shaB := sha256.Sum256(pkgBuf.Bytes())
+	shaB := sha256.Sum256(pkgBuf)
 	shaH := hex.EncodeToString(shaB[:])
 	pkgRoot := fmt.Sprintf("indexes/%s-%s-%s", src.Release, src.Channel, src.Arch)
 	pkgFile := fmt.Sprintf("%s/%s/Packages.xz", pkgRoot, shaH)
 	origPkgFile := fmt.Sprintf("%s.orig", pkgFile)
 	inReleaseFile := fmt.Sprintf("%s/%s/InRelease.orig", pkgRoot, shaH)
 
-	packagesWritten := writePackagesXZ(ctx, bucket, pkgBuf, pkgFile)
+	packagesWritten := writePackagesXZ(ctx, bucket, bytes.NewReader(pkgBuf), pkgFile)
 	originInfoWritten := writeOriginInfo(ctx, bucket, origPkgBuf, origPkgFile, inReleaseBuf, inReleaseFile)
 
-	if packagesWritten || originInfoWritten {
-		// update latest file
-		latest := fmt.Sprintf("%s/latest", pkgRoot)
-		latestTgt := strings.NewReader(pkgFile)
-		if err := gcs.Write(ctx, bucket, latestTgt, latest); err != nil {
+	// update latest file
+	latest := fmt.Sprintf("%s/latest", pkgRoot)
+	latestSha := strings.NewReader(shaH)
+	latestExists, err := gcs.Exists(ctx, bucket, latest)
+	if err != nil {
+		log.Fatal("failed to check if latest exist on gcs ", latest, err)
+	}
+	if !latestExists || packagesWritten || originInfoWritten {
+		if err := gcs.Write(ctx, bucket, latestSha, latest); err != nil {
 			log.Fatal("failed to write latest to gcs", latest, err)
 		}
-		log.Printf("Updated latest %q to %q", latest, pkgFile)
+		log.Printf("Updated latest %q to %q", latest, shaH)
 	}
 }
 
 // returns true if a file was written, false if already exists
-func writePackagesXZ(ctx context.Context, bucket *storage.BucketHandle, contents *bytes.Buffer, dest string) bool {
+func writePackagesXZ(ctx context.Context, bucket *storage.BucketHandle, contents io.Reader, dest string) bool {
 	if exists, err := gcs.Exists(ctx, bucket, dest); err != nil {
 		log.Fatal("failed to check if Packages.xz exists on gcs ", dest, err)
 	} else if exists {
@@ -172,7 +180,7 @@ func writePackagesXZ(ctx context.Context, bucket *storage.BucketHandle, contents
 
 // Packages.xz.orig and InRelease are a pair and should be written together even if one already exists.
 // returns true if files were written, false if BOTH already exists
-func writeOriginInfo(ctx context.Context, bucket *storage.BucketHandle, origPkgBuf *bytes.Buffer, origPkgDest string, inReleaseBuf *bytes.Buffer, inReleaseDest string) bool {
+func writeOriginInfo(ctx context.Context, bucket *storage.BucketHandle, origPkgBuf []byte, origPkgDest string, inReleaseBuf []byte, inReleaseDest string) bool {
 	if exist, err := gcs.Exists(ctx, bucket, origPkgDest, inReleaseDest); err != nil {
 		log.Fatal("failed to check if Packages.xz.orig and InRelease.orig exist on gcs ", origPkgDest, inReleaseDest, err)
 	} else if exist {
@@ -181,12 +189,12 @@ func writeOriginInfo(ctx context.Context, bucket *storage.BucketHandle, origPkgB
 		return false
 	}
 
-	if err := gcs.Write(ctx, bucket, origPkgBuf, origPkgDest); err != nil {
+	if err := gcs.Write(ctx, bucket, bytes.NewReader(origPkgBuf), origPkgDest); err != nil {
 		log.Fatal("failed to copy Packages.xz.orig to gcs ", origPkgDest, err)
 	}
 	log.Printf("Wrote %q", origPkgDest)
 
-	if err := gcs.Write(ctx, bucket, inReleaseBuf, inReleaseDest); err != nil {
+	if err := gcs.Write(ctx, bucket, bytes.NewReader(inReleaseBuf), inReleaseDest); err != nil {
 		log.Fatal("failed to copy Packages.xz.orig to gcs ", inReleaseDest, err)
 	}
 	log.Printf("Wrote %q", inReleaseDest)

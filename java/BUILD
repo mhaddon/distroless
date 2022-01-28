@@ -1,42 +1,69 @@
 package(default_visibility = ["//visibility:public"])
 
-load("//base:distro.bzl", "DISTRO_PACKAGES", "DISTRO_SUFFIXES")
+load("//base:distro.bzl", "DISTROS")
+load("//base:base.bzl", "deb_file")
 load("@io_bazel_rules_docker//container:container.bzl", "container_image")
 load("@io_bazel_rules_docker//contrib:test.bzl", "container_test")
 load("@io_bazel_rules_docker//java:image.bzl", "java_image")
-load("@package_bundle_amd64_debian10//file:packages.bzl", versions_amd64_debian10 = "versions")
 load("//cacerts:java.bzl", "cacerts_java")
 load("//java:jre_ver.bzl", "jre_ver")
-
-DISTRO_VERSIONS = {
-    "_debian10": versions_amd64_debian10,
-}
+load("//:checksums.bzl", ARCHITECTURES = "BASE_ARCHITECTURES")
+load("//:debian_versions.bzl", DEBIAN_VERSIONS = "DEBIAN_PACKAGE_VERSIONS")
 
 USERS = [
     "root",
     "nonroot",
 ]
 
+VERSION_PAIRS = [
+    ("11", "amd64", "debian10"),
+    ("11", "amd64", "debian11"),
+    ("11", "arm64", "debian11"),
+    ("17", "amd64", "debian11"),
+    ("17", "arm64", "debian11"),
+]
+
+EXTRA_DEBS = {
+    "debian10": [],
+    "debian11": [
+        "libbrotli1",
+    ],
+}
+
+[
+    cacerts_java(
+        name = "cacerts_java_" + arch + "_" + distro,
+        cacerts_tar = "//base:cacerts_" + arch + "_" + distro,
+    )
+    for distro in DISTROS
+    for arch in ARCHITECTURES
+]
+
 [
     container_image(
-        name = "java_base" + mode + "_" + user + distro_suffix,
-        base = ("//cc:cc" if (not ("debug" in mode)) else "//cc:debug") + "_" + user + "_amd64" + distro_suffix,
+        name = "java_base" + mode + "_" + user + "_" + arch + "_" + distro,
+        architecture = arch,
+        base = ("//cc:cc" if (not ("debug" in mode)) else "//cc:debug") + "_" + user + "_" + arch + "_" + distro,
         debs = [
-            DISTRO_PACKAGES["amd64"][distro_suffix]["zlib1g"],
-            DISTRO_PACKAGES["amd64"][distro_suffix]["libjpeg62-turbo"],
-            DISTRO_PACKAGES["amd64"][distro_suffix]["libpng16-16"],
-            DISTRO_PACKAGES["amd64"][distro_suffix]["liblcms2-2"],
-            DISTRO_PACKAGES["amd64"][distro_suffix]["libfreetype6"],
-            DISTRO_PACKAGES["amd64"][distro_suffix]["fonts-dejavu-core"],
-            DISTRO_PACKAGES["amd64"][distro_suffix]["fontconfig-config"],
-            DISTRO_PACKAGES["amd64"][distro_suffix]["libexpat1"],
-            DISTRO_PACKAGES["amd64"][distro_suffix]["libfontconfig1"],
-            DISTRO_PACKAGES["amd64"][distro_suffix]["libuuid1"],
-        ],
+            deb_file(arch, distro, "zlib1g"),
+            deb_file(arch, distro, "libjpeg62-turbo"),
+            deb_file(arch, distro, "libpng16-16"),
+            deb_file(arch, distro, "liblcms2-2"),
+            deb_file(arch, distro, "libfreetype6"),
+            deb_file(arch, distro, "fonts-dejavu-core"),
+            deb_file(arch, distro, "fontconfig-config"),
+            deb_file(arch, distro, "libexpat1"),
+            deb_file(arch, distro, "libfontconfig1"),
+            deb_file(arch, distro, "libuuid1"),
+            deb_file(arch, distro, "libgraphite2-3"),
+            deb_file(arch, distro, "libharfbuzz0b"),
+            deb_file(arch, distro, "libglib2.0-0"),
+            deb_file(arch, distro, "libpcre3"),
+        ] + [deb_file(arch, distro, deb) for deb in EXTRA_DEBS[distro]],
         env = {"LANG": "C.UTF-8"},
         tars = [
-            "//cacerts:cacerts_java_amd64" + distro_suffix,
-            "//locale:locale_amd64" + distro_suffix,
+            ":cacerts_java_" + arch + "_" + distro,
+            "//locale:locale_" + arch + "_" + distro,
         ],
     )
     for mode in [
@@ -44,50 +71,71 @@ USERS = [
         "_debug",
     ]
     for user in USERS
-    for distro_suffix in DISTRO_SUFFIXES
+    for distro in DISTROS
+    for arch in ARCHITECTURES
+    if not (arch == "arm64" and distro == "debian10")
 ]
 
 [
     container_image(
-        name = rule_name + "_" + user + distro_suffix,
-        base = ":java_base" + ("_debug" if ("debug" in rule_name) else "") + "_" + user + distro_suffix,
-        debs = [DISTRO_PACKAGES["amd64"][distro_suffix][deb] for deb in java_debs],
+        name = "java" + java_version + "_" + user + "_" + arch + "_" + distro,
+        architecture = arch,
+        base = ":java_base_" + user + "_" + arch + "_" + distro,
+        debs = [deb_file(
+            arch,
+            distro,
+            "openjdk-" + java_version + "-jre-headless",
+        )],
         # We expect users to use:
         # cmd = ["/path/to/deploy.jar", "--option1", ...]
         entrypoint = [
             "/usr/bin/java",
             "-jar",
         ],
-        env = {"JAVA_VERSION": jre_ver(DISTRO_VERSIONS[distro_suffix][java_debs[0]])},
-        symlinks = {"/usr/bin/java": java_executable_path},
+        env = {"JAVA_VERSION": jre_ver(DEBIAN_VERSIONS[arch][distro]["openjdk-" + java_version + "-jre-headless"])},
+        symlinks = {"/usr/bin/java": "/usr/lib/jvm/java-" + java_version + "-openjdk-" + arch + "/bin/java"},
     )
-    for (distro_suffix, rule_name, java_debs, java_executable_path) in [
-        (
-            "_debian10",
-            "java11",
-            ["openjdk-11-jre-headless"],
-            "/usr/lib/jvm/java-11-openjdk-amd64/bin/java",
-        ),
-        (
-            "_debian10",
-            "java11_debug",
-            [
-                "openjdk-11-jre-headless",
-                "openjdk-11-jdk-headless",
-            ],
-            "/usr/lib/jvm/java-11-openjdk-amd64/bin/java",
-        ),
-    ]
+    for (java_version, arch, distro) in VERSION_PAIRS
+    for user in USERS
+]
+
+[
+    container_image(
+        name = "java" + java_version + "_debug_" + user + "_" + arch + "_" + distro,
+        architecture = arch,
+        base = ":java_base_debug_" + user + "_" + arch + "_" + distro,
+        debs = [
+            deb_file(
+                arch,
+                distro,
+                "openjdk-" + java_version + "-jre-headless",
+            ),
+            deb_file(
+                arch,
+                distro,
+                "openjdk-" + java_version + "-jdk-headless",
+            ),
+        ],
+        # We expect users to use:
+        # cmd = ["/path/to/deploy.jar", "--option1", ...]
+        entrypoint = [
+            "/usr/bin/java",
+            "-jar",
+        ],
+        env = {"JAVA_VERSION": jre_ver(DEBIAN_VERSIONS[arch][distro]["openjdk-" + java_version + "-jre-headless"])},
+        symlinks = {"/usr/bin/java": "/usr/lib/jvm/java-" + java_version + "-openjdk-" + arch + "/bin/java"},
+    )
+    for (java_version, arch, distro) in VERSION_PAIRS
     for user in USERS
 ]
 
 [
     container_test(
-        name = "java_base" + mode + "_" + user + distro_suffix + "_test",
+        name = "java_base" + mode + "_" + user + "_" + arch + "_" + distro + "_test",
         configs = ["testdata/java_base" + mode + ".yaml"],
-        image = ":java_base" + mode + "_" + user + distro_suffix,
+        image = ":java_base" + mode + "_" + user + "_" + arch + "_" + distro,
         tags = [
-            "amd64",
+            arch,
             "manual",
         ],
     )
@@ -95,51 +143,56 @@ USERS = [
         "",
         "_debug",
     ]
+    for arch in ARCHITECTURES
     for user in USERS
-    for distro_suffix in DISTRO_SUFFIXES
+    for distro in DISTROS
 ]
 
 [
     container_test(
-        name = "java11_" + user + distro_suffix + "_test",
-        configs = ["testdata/java11" + distro_suffix + ".yaml"],
-        image = ":java11_" + user + distro_suffix,
+        name = "java" + java_version + "_" + user + "_" + arch + "_" + distro + "_test",
+        configs = ["testdata/java" + java_version + "_" + distro + ".yaml"],
+        image = ":java" + java_version + "_" + user + "_" + arch + "_" + distro,
         tags = [
-            "amd64",
+            arch,
             "manual",
         ],
     )
     for user in USERS
-    for distro_suffix in DISTRO_SUFFIXES
+    for (java_version, arch, distro) in VERSION_PAIRS
 ]
 
 [
     container_test(
-        name = "java11_debug_" + user + distro_suffix + "_test",
-        configs = ["testdata/java11_debug" + distro_suffix + ".yaml"],
-        image = ":java11_debug_" + user + distro_suffix,
+        name = "java" + java_version + "_debug_" + user + "_" + arch + "_" + distro + "_test",
+        configs = ["testdata/java" + java_version + "_debug" + "_" + distro + ".yaml"],
+        image = ":java" + java_version + "_debug_" + user + "_" + arch + "_" + distro,
         tags = [
-            "amd64",
+            arch,
             "manual",
         ],
     )
     for user in USERS
-    for distro_suffix in DISTRO_SUFFIXES
+    for (java_version, arch, distro) in VERSION_PAIRS
 ]
 
 RULE_NAMES = [
-    "java11_root_debian10",
-    "java11_nonroot_debian10",
+    ("java11_root_debian10", "java11_root_amd64_debian10"),
+    ("java11_nonroot_debian10", "java11_nonroot_amd64_debian10"),
+    ("java11_root_debian11", "java11_root_amd64_debian11"),
+    ("java11_nonroot_debian11", "java11_nonroot_amd64_debian11"),
+    ("java17_root_debian11", "java17_root_amd64_debian11"),
+    ("java17_nonroot_debian11", "java17_nonroot_amd64_debian11"),
 ]
 
 [
     java_image(
         name = "check_certs_" + rule_name,
         srcs = ["testdata/CheckCerts.java"],
-        base = "//java:" + rule_name,
+        base = "//java:" + base_name,
         main_class = "testdata.CheckCerts",
     )
-    for rule_name in RULE_NAMES
+    for (rule_name, base_name) in RULE_NAMES
 ]
 
 [
@@ -152,17 +205,17 @@ RULE_NAMES = [
             "manual",
         ],
     )
-    for rule_name in RULE_NAMES
+    for (rule_name, _) in RULE_NAMES
 ]
 
 [
     java_image(
         name = "check_encoding_" + rule_name,
         srcs = ["testdata/CheckEncoding.java"],
-        base = "//java:" + rule_name,
+        base = "//java:" + base_name,
         main_class = "testdata.CheckEncoding",
     )
-    for rule_name in RULE_NAMES
+    for (rule_name, base_name) in RULE_NAMES
 ]
 
 [
@@ -175,5 +228,28 @@ RULE_NAMES = [
             "manual",
         ],
     )
-    for rule_name in RULE_NAMES
+    for (rule_name, _) in RULE_NAMES
+]
+
+[
+    java_image(
+        name = "check_libharfbuzz_" + rule_name,
+        srcs = ["testdata/CheckLibharfbuzz.java"],
+        base = "//java:" + base_name,
+        main_class = "testdata.CheckLibharfbuzz",
+    )
+    for (rule_name, base_name) in RULE_NAMES
+]
+
+[
+    container_test(
+        name = "check_libharfbuzz_" + rule_name + "_test",
+        configs = ["testdata/" + rule_name + "_libharfbuzz.yaml"],
+        image = ":check_libharfbuzz_" + rule_name,
+        tags = [
+            "amd64",
+            "manual",
+        ],
+    )
+    for (rule_name, _) in RULE_NAMES
 ]

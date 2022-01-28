@@ -24,7 +24,7 @@ from package_manager.version_utils import compare_versions
 from package_manager import util
 
 OUT_FOLDER = "file"
-OS_RELEASE_PATH = "etc"
+OS_RELEASE_PATH = "usr/lib"
 PACKAGES_FILE_NAME = os.path.join(OUT_FOLDER,"Packages.json")
 PACKAGE_MAP_FILE_NAME = os.path.join(OUT_FOLDER,"packages.bzl")
 OS_RELEASE_FILE_NAME = os.path.join(OS_RELEASE_PATH, "os-release")
@@ -119,11 +119,11 @@ def download_dpkg(package_files, packages, workspace_name, versionsfile):
             expected_checksum = pkg[SHA256_KEY]
             if actual_checksum != expected_checksum:
                 raise Exception("Wrong checksum for package %s %s (%s).  Expected: %s, Actual: %s" %(pkg_name, os.getcwd() + "/" + out_file, pkg[FILENAME_KEY], expected_checksum, actual_checksum))
-    with open(PACKAGE_MAP_FILE_NAME, 'w') as f:
+    with open(PACKAGE_MAP_FILE_NAME, 'w', encoding="utf-8") as f:
         f.write("packages = " + json.dumps(package_to_rule_map))
         f.write("\nversions = " + json.dumps(package_to_version_map))
     if versionsfile:
-        with open(versionsfile, 'w') as f:
+        with open(versionsfile, 'w', encoding="utf-8") as f:
             f.write(json.dumps(package_to_version_map, sort_keys=True, indent=4, separators=(',', ': ')))
             f.write('\n')
 
@@ -181,7 +181,7 @@ SHA256: 52ec3ac93cf8ba038fbcefe1e78f26ca1d59356cdc95e60f987c3f52b3f5e7ef
             arch
         )
 
-    
+
     packages_copy = url.split('/')[-1]
     download_and_save(url, packages_copy)
     actual_sha256 = util.sha256_checksum(packages_copy)
@@ -194,7 +194,7 @@ SHA256: 52ec3ac93cf8ba038fbcefe1e78f26ca1d59356cdc95e60f987c3f52b3f5e7ef
         with lzma.open("Packages.xz", 'rb') as f:
             data = f.read()
     metadata = parse_package_metadata(data, mirror_url, snapshot, package_prefix)
-    with open(PACKAGES_FILE_NAME, 'w') as f:
+    with open(PACKAGES_FILE_NAME, 'w', encoding="utf-8") as f:
         json.dump(metadata, f)
 
 if __name__ == "__main__":

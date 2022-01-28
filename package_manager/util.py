@@ -35,9 +35,11 @@ DEBIAN_RELEASES = {
 }
 
 def generate_os_release(distro, os_release_file):
-    """ Generates an /etc/os-release like file with information about the
-    package distribution.  VERSION and VERSION_ID are left unset if the package
-    source is from an unknown debian release.
+    """ Generates an os-release like file with information about the
+    package distribution. Original file is written to /usr/lib/os-release,
+    a symlink to /etc/os-release already exists. VERSION and VERSION_ID are
+    left unset if the package source is from an unknown debian release. See:
+    https://manpages.debian.org/systemd/os-release.5.en.html
     """
 
     os_release = collections.OrderedDict([
@@ -59,7 +61,7 @@ def generate_os_release(distro, os_release_file):
 
 def build_os_release_tar(distro, os_release_file, os_release_path, tar_file_name):
     os.makedirs(os_release_path)
-    with open(os_release_file, 'w') as os_release:
+    with open(os_release_file, 'w', encoding="utf-8") as os_release:
         generate_os_release(distro, os_release)
     with TarFile(output=tar_file_name, directory=None, compression='', root_directory='./', default_mtime=0) as tar:
         tar.add_file(os_release_path, os_release_path, mode=0o644)
