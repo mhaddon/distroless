@@ -1,0 +1,29 @@
+name: Build ruby images
+
+on:
+  push:
+    branches:
+      - 'ruby'
+  schedule:
+    - cron: "0 0 * * 6" # At 00:00 on Saturday
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # - uses: bazelbuild/setup-bazelisk@v1
+      - uses: actions/cache@v2
+        with:
+          path: "~/.cache/bazel"
+          key: bazel
+      - name: Build
+        run: |
+          set -ex
+          bazelisk build --curses=no //package_manager:dpkg_parser.par
+          bazelisk build --curses=no //experimental/ruby:all
+      - name: Push
+        run: |
+          set -ex
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          ./push.rb
