@@ -9,6 +9,12 @@ def repositories():
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/b/base-files/base-files_10.3+deb10u11_amd64.deb"],
     )
     http_file(
+        name = "amd64_debian10_bundler",
+        downloaded_file_path = "bundler_1.17.3-3+deb10u1_all.deb",
+        sha256 = "9f41f68fc9d8a117ef0cdcbf177aca1965dfccf330519a9281808941e65cc17b",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/b/bundler/bundler_1.17.3-3+deb10u1_all.deb"],
+    )
+    http_file(
         name = "amd64_debian10_ca-certificates",
         downloaded_file_path = "ca-certificates_20200601~deb10u2_all.deb",
         sha256 = "a9e267a24088c793a9cf782455fd344db5fdced714f112a8857c5bfd07179387",
@@ -87,10 +93,28 @@ def repositories():
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/g/gcc-8/libgcc1_8.3.0-6_amd64.deb"],
     )
     http_file(
+        name = "amd64_debian10_libgdbm-compat4",
+        downloaded_file_path = "libgdbm-compat4_1.18.1-4_amd64.deb",
+        sha256 = "5af8fd893c3b065f46365efa3f037c8ac22af00683fed15b1ea36970bbabd764",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/g/gdbm/libgdbm-compat4_1.18.1-4_amd64.deb"],
+    )
+    http_file(
+        name = "amd64_debian10_libgdbm6",
+        downloaded_file_path = "libgdbm6_1.18.1-4_amd64.deb",
+        sha256 = "d2cf8da8b3d575f0c2d7cb0a687e63b617a7bc85e434b8b1a2abe63481977619",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/g/gdbm/libgdbm6_1.18.1-4_amd64.deb"],
+    )
+    http_file(
         name = "amd64_debian10_libglib2.0-0",
         downloaded_file_path = "libglib2.0-0_2.58.3-2+deb10u3_amd64.deb",
         sha256 = "566e664cc69e23fade34be92711f359ec02a9854222244f3603fdf640cc6688a",
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/g/glib2.0/libglib2.0-0_2.58.3-2+deb10u3_amd64.deb"],
+    )
+    http_file(
+        name = "amd64_debian10_libgmp10",
+        downloaded_file_path = "libgmp10_6.1.2+dfsg-4_amd64.deb",
+        sha256 = "d9c9661c7d4d686a82c29d183124adacbefff797f1ef5723d509dbaa2e92a87c",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/g/gmp/libgmp10_6.1.2+dfsg-4_amd64.deb"],
     )
     http_file(
         name = "amd64_debian10_libgomp1",
@@ -135,6 +159,12 @@ def repositories():
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/m/mpdecimal/libmpdec2_2.4.2-2_amd64.deb"],
     )
     http_file(
+        name = "amd64_debian10_libncurses6",
+        downloaded_file_path = "libncurses6_6.1+20181013-2+deb10u2_amd64.deb",
+        sha256 = "25cc6d68d36b13b54ca5a1c2933703681bf4694a66ee29a555616620a482fe0d",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/n/ncurses/libncurses6_6.1+20181013-2+deb10u2_amd64.deb"],
+    )
+    http_file(
         name = "amd64_debian10_libncursesw6",
         downloaded_file_path = "libncursesw6_6.1+20181013-2+deb10u2_amd64.deb",
         sha256 = "7dffe9602586300292960f2e3cf4301acfc64a91aed6fa41ea2e719ae75788b3",
@@ -171,6 +201,12 @@ def repositories():
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/readline/libreadline7_7.0-5_amd64.deb"],
     )
     http_file(
+        name = "amd64_debian10_libruby2.5",
+        downloaded_file_path = "libruby2.5_2.5.5-3+deb10u3_amd64.deb",
+        sha256 = "8c0ab12225563e5a84ed5a8ab5a75b2ddb3e3f0f3c47d9a4178441b4101788f1",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby2.5/libruby2.5_2.5.5-3+deb10u3_amd64.deb"],
+    )
+    http_file(
         name = "amd64_debian10_libsqlite3-0",
         downloaded_file_path = "libsqlite3-0_3.27.2-3+deb10u1_amd64.deb",
         sha256 = "19268b796e62f754400c67c69cb759220089cf10aaa5dfd72a84ab1a818caa08",
@@ -199,6 +235,12 @@ def repositories():
         downloaded_file_path = "libuuid1_2.33.1-0.1_amd64.deb",
         sha256 = "90b90bef4593d4f347fb1e74a63c5609daa86d4c5003b14e85f58628d6c118b2",
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/u/util-linux/libuuid1_2.33.1-0.1_amd64.deb"],
+    )
+    http_file(
+        name = "amd64_debian10_libyaml-0-2",
+        downloaded_file_path = "libyaml-0-2_0.2.1-1_amd64.deb",
+        sha256 = "c4b2493e0e8944f86521e03319e089375a1e82476890a03057b608a4d4d24814",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/liby/libyaml/libyaml-0-2_0.2.1-1_amd64.deb"],
     )
     http_file(
         name = "amd64_debian10_mime-support",
@@ -243,10 +285,94 @@ def repositories():
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/p/python3.7/python3.7-minimal_3.7.3-2+deb10u3_amd64.deb"],
     )
     http_file(
+        name = "amd64_debian10_rake",
+        downloaded_file_path = "rake_12.3.1-3+deb10u1_all.deb",
+        sha256 = "d0d00f9929ed2e5e06a87150575772b2e364f2c9a7f8551666b0e11a3cacab98",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/rake/rake_12.3.1-3+deb10u1_all.deb"],
+    )
+    http_file(
         name = "amd64_debian10_readline-common",
         downloaded_file_path = "readline-common_7.0-5_all.deb",
         sha256 = "153d8a5ddb04044d10f877a8955d944612ec9035f4c73eec99d85a92c3816712",
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/readline/readline-common_7.0-5_all.deb"],
+    )
+    http_file(
+        name = "amd64_debian10_ruby",
+        downloaded_file_path = "ruby_2.5.1_amd64.deb",
+        sha256 = "df06d9ce9e2090d9cb2e8cd1f4d7754a803dc452bf93e3204e3acd3b95508628",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-defaults/ruby_2.5.1_amd64.deb"],
+    )
+    http_file(
+        name = "amd64_debian10_ruby-bundler",
+        downloaded_file_path = "ruby-bundler_1.17.3-3+deb10u1_all.deb",
+        sha256 = "c913748debd68d6bf4188eab051cdc670e095ed8f9b03b05952dd6a8fec7a45b",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/b/bundler/ruby-bundler_1.17.3-3+deb10u1_all.deb"],
+    )
+    http_file(
+        name = "amd64_debian10_ruby-did-you-mean",
+        downloaded_file_path = "ruby-did-you-mean_1.2.1-1_all.deb",
+        sha256 = "4ef1c4062093f165d8bfd65ad542f55a4104a04c60d17d3891ce5c3b61c91fa1",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-did-you-mean/ruby-did-you-mean_1.2.1-1_all.deb"],
+    )
+    http_file(
+        name = "amd64_debian10_ruby-minitest",
+        downloaded_file_path = "ruby-minitest_5.11.3-1_all.deb",
+        sha256 = "54e8b16c8809b1c516c9e9167c71021b02654285324bd4177dfc04841893bd80",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-minitest/ruby-minitest_5.11.3-1_all.deb"],
+    )
+    http_file(
+        name = "amd64_debian10_ruby-molinillo",
+        downloaded_file_path = "ruby-molinillo_0.6.4-1_all.deb",
+        sha256 = "c4a8695e3afb48e4d175519da990a6e27922a0fe96b7039dd71000506f6d07c5",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-molinillo/ruby-molinillo_0.6.4-1_all.deb"],
+    )
+    http_file(
+        name = "amd64_debian10_ruby-net-http-persistent",
+        downloaded_file_path = "ruby-net-http-persistent_2.9.4-2_all.deb",
+        sha256 = "e195429a802483b78bc39ed563dbfbcc09cba0fdfc95ea7b0a63b9bb49ed5fee",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-net-http-persistent/ruby-net-http-persistent_2.9.4-2_all.deb"],
+    )
+    http_file(
+        name = "amd64_debian10_ruby-net-telnet",
+        downloaded_file_path = "ruby-net-telnet_0.1.1-2_all.deb",
+        sha256 = "a9f5123e22f32ca9cfef25d7087d347664701e2a80ab335c68e8fe6e73d956a9",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-net-telnet/ruby-net-telnet_0.1.1-2_all.deb"],
+    )
+    http_file(
+        name = "amd64_debian10_ruby-power-assert",
+        downloaded_file_path = "ruby-power-assert_1.1.1-1_all.deb",
+        sha256 = "2a4c2cc67a7af752642e661f7bf34dbc86e46a297033cbeabb5d1fafda01c481",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-power-assert/ruby-power-assert_1.1.1-1_all.deb"],
+    )
+    http_file(
+        name = "amd64_debian10_ruby-test-unit",
+        downloaded_file_path = "ruby-test-unit_3.2.8-1_all.deb",
+        sha256 = "2cd46b3669381956382d8eb553e4e440aa1eee8652e7e4804af9994a49577633",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-test-unit/ruby-test-unit_3.2.8-1_all.deb"],
+    )
+    http_file(
+        name = "amd64_debian10_ruby-thor",
+        downloaded_file_path = "ruby-thor_0.19.4-1_all.deb",
+        sha256 = "7f0aa5c74cffe92bfa4ee8e855e25f27459b7659b095a80dd29b449a676e343b",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-thor/ruby-thor_0.19.4-1_all.deb"],
+    )
+    http_file(
+        name = "amd64_debian10_ruby-xmlrpc",
+        downloaded_file_path = "ruby-xmlrpc_0.3.0-2_all.deb",
+        sha256 = "09606c91eb7be0bbd5e66a4a9e7fc473726fd699b010551e084f89c9c544a428",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-xmlrpc/ruby-xmlrpc_0.3.0-2_all.deb"],
+    )
+    http_file(
+        name = "amd64_debian10_ruby2.5",
+        downloaded_file_path = "ruby2.5_2.5.5-3+deb10u3_amd64.deb",
+        sha256 = "9fcc0dc9d0bc2156207407840a54a57353968179bef32fe43cf88a30032b4d59",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby2.5/ruby2.5_2.5.5-3+deb10u3_amd64.deb"],
+    )
+    http_file(
+        name = "amd64_debian10_rubygems-integration",
+        downloaded_file_path = "rubygems-integration_1.11+deb10u1_all.deb",
+        sha256 = "f80b8400fcbaf6f670ff9f12e13263d88a32de206b15875de14883c1cf035475",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/rubygems-integration/rubygems-integration_1.11+deb10u1_all.deb"],
     )
     http_file(
         name = "amd64_debian10_tzdata",
@@ -265,6 +391,12 @@ def repositories():
         downloaded_file_path = "base-files_11.1+deb11u2_amd64.deb",
         sha256 = "4aea07e9da98598a58e4aebd43ec80861d71168b2c5b3978b87035fb0121bf5d",
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/b/base-files/base-files_11.1+deb11u2_amd64.deb"],
+    )
+    http_file(
+        name = "amd64_debian11_bundler",
+        downloaded_file_path = "bundler_2.2.5-2_all.deb",
+        sha256 = "9722c545938e8b50c9eeb4735dce432b08d3935f58f9f17131cb1bb4fa37ca4f",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/rubygems/bundler_2.2.5-2_all.deb"],
     )
     http_file(
         name = "amd64_debian11_ca-certificates",
@@ -295,6 +427,12 @@ def repositories():
         downloaded_file_path = "libbrotli1_1.0.9-2+b2_amd64.deb",
         sha256 = "65ca7d8b03e9dac09c5d544a89dd52d1aeb74f6a19583d32e4ff5f0c77624c24",
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/b/brotli/libbrotli1_1.0.9-2+b2_amd64.deb"],
+    )
+    http_file(
+        name = "amd64_debian11_libbsd0",
+        downloaded_file_path = "libbsd0_0.11.3-1_amd64.deb",
+        sha256 = "284a7b8dcfcad74770f57360721365317448b38ab773db542bf630e94e60c13e",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/libb/libbsd/libbsd0_0.11.3-1_amd64.deb"],
     )
     http_file(
         name = "amd64_debian11_libbz2-1.0",
@@ -333,6 +471,12 @@ def repositories():
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/d/db5.3/libdb5.3_5.3.28+dfsg1-0.8_amd64.deb"],
     )
     http_file(
+        name = "amd64_debian11_libedit2",
+        downloaded_file_path = "libedit2_3.1-20191231-2+b1_amd64.deb",
+        sha256 = "ac545f6ad10ba791aca24b09255ad1d6d943e6bc7c5511d5998e104aee51c943",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/libe/libedit/libedit2_3.1-20191231-2+b1_amd64.deb"],
+    )
+    http_file(
         name = "amd64_debian11_libexpat1",
         downloaded_file_path = "libexpat1_2.2.10-2_amd64.deb",
         sha256 = "eda6663f34375a9456c8c701002f1271bc90ac2627b9fb0892474e65eae1b668",
@@ -363,10 +507,28 @@ def repositories():
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/g/gcc-10/libgcc-s1_10.2.1-6_amd64.deb"],
     )
     http_file(
+        name = "amd64_debian11_libgdbm-compat4",
+        downloaded_file_path = "libgdbm-compat4_1.19-2_amd64.deb",
+        sha256 = "e62caed68b0ffaa03b5fa539d6fdc08c4151f66236d5878949bead0b71b7bb09",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/g/gdbm/libgdbm-compat4_1.19-2_amd64.deb"],
+    )
+    http_file(
+        name = "amd64_debian11_libgdbm6",
+        downloaded_file_path = "libgdbm6_1.19-2_amd64.deb",
+        sha256 = "e54cfe4d8b8f209bb7df31a404ce040f7c2f9b1045114a927a7e1061cdf90727",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/g/gdbm/libgdbm6_1.19-2_amd64.deb"],
+    )
+    http_file(
         name = "amd64_debian11_libglib2.0-0",
         downloaded_file_path = "libglib2.0-0_2.66.8-1_amd64.deb",
         sha256 = "995469490dcc8f667df8051a39dd5abd7149d849456c28af4e58cbfd6d6dc4f8",
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/g/glib2.0/libglib2.0-0_2.66.8-1_amd64.deb"],
+    )
+    http_file(
+        name = "amd64_debian11_libgmp10",
+        downloaded_file_path = "libgmp10_6.2.1+dfsg-1+deb11u1_amd64.deb",
+        sha256 = "fc117ccb084a98d25021f7e01e4dfedd414fa2118fdd1e27d2d801d7248aebbc",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/g/gmp/libgmp10_6.2.1+dfsg-1+deb11u1_amd64.deb"],
     )
     http_file(
         name = "amd64_debian11_libgomp1",
@@ -483,6 +645,12 @@ def repositories():
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/readline/libreadline8_8.1-1_amd64.deb"],
     )
     http_file(
+        name = "amd64_debian11_libruby2.7",
+        downloaded_file_path = "libruby2.7_2.7.4-1_amd64.deb",
+        sha256 = "457c0cb76cf0fb5fe30fbd9edc08df67f34a7322a881e654f4f42c89aada4bf3",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby2.7/libruby2.7_2.7.4-1_amd64.deb"],
+    )
+    http_file(
         name = "amd64_debian11_libsqlite3-0",
         downloaded_file_path = "libsqlite3-0_3.34.1-3_amd64.deb",
         sha256 = "a0b8d3acf4a0483048637637d269be93af48d5c16f6f139f53edd13384ad4686",
@@ -517,6 +685,12 @@ def repositories():
         downloaded_file_path = "libuuid1_2.36.1-8+deb11u1_amd64.deb",
         sha256 = "31250af4dd3b7d1519326a9a6764d1466a93d8f498cf6545058761ebc38b2823",
         urls = ["https://snapshot.debian.org/archive/debian-security/20220125T132258Z/pool/updates/main/u/util-linux/libuuid1_2.36.1-8+deb11u1_amd64.deb"],
+    )
+    http_file(
+        name = "amd64_debian11_libyaml-0-2",
+        downloaded_file_path = "libyaml-0-2_0.2.2-1_amd64.deb",
+        sha256 = "b0fd7c43eea64016dd3ebd14bd2d32c2a11f08f7a1692716e10f8a22501784a2",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/liby/libyaml/libyaml-0-2_0.2.2-1_amd64.deb"],
     )
     http_file(
         name = "amd64_debian11_netbase",
@@ -565,6 +739,72 @@ def repositories():
         downloaded_file_path = "python3.9-minimal_3.9.2-1_amd64.deb",
         sha256 = "5d6003c5c20223a2547ac4976e09a9ec778dbe351507a6292bef3b60df5f4aa7",
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/p/python3.9/python3.9-minimal_3.9.2-1_amd64.deb"],
+    )
+    http_file(
+        name = "amd64_debian11_rake",
+        downloaded_file_path = "rake_13.0.3-1_all.deb",
+        sha256 = "c3cae0f213004ab8090ed9a71b30c13cf215920095fa92018569e95b28448520",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/rake/rake_13.0.3-1_all.deb"],
+    )
+    http_file(
+        name = "amd64_debian11_ruby",
+        downloaded_file_path = "ruby_2.7+2_amd64.deb",
+        sha256 = "bfef89ab7b12d4048f4692764f0a39c2c855abe01689733d31bd244aed77dbb1",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-defaults/ruby_2.7+2_amd64.deb"],
+    )
+    http_file(
+        name = "amd64_debian11_ruby-bundler",
+        downloaded_file_path = "ruby-bundler_2.2.5-2_all.deb",
+        sha256 = "5360adb16097acfa0c7754aa44a88824ef8d9b4856d33bfaae5eb9d22f272dd0",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/rubygems/ruby-bundler_2.2.5-2_all.deb"],
+    )
+    http_file(
+        name = "amd64_debian11_ruby-minitest",
+        downloaded_file_path = "ruby-minitest_5.13.0-1_all.deb",
+        sha256 = "beeaebe2840ee4279fab78b244453387c647b67ce4e44ceb6f17ea9195b06896",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-minitest/ruby-minitest_5.13.0-1_all.deb"],
+    )
+    http_file(
+        name = "amd64_debian11_ruby-net-telnet",
+        downloaded_file_path = "ruby-net-telnet_0.1.1-2_all.deb",
+        sha256 = "a9f5123e22f32ca9cfef25d7087d347664701e2a80ab335c68e8fe6e73d956a9",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-net-telnet/ruby-net-telnet_0.1.1-2_all.deb"],
+    )
+    http_file(
+        name = "amd64_debian11_ruby-power-assert",
+        downloaded_file_path = "ruby-power-assert_1.1.7-2_all.deb",
+        sha256 = "26658036ed5512d467d45c28957f4fbdf12b96b526628e3f00bf3a85198c7baa",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-power-assert/ruby-power-assert_1.1.7-2_all.deb"],
+    )
+    http_file(
+        name = "amd64_debian11_ruby-rubygems",
+        downloaded_file_path = "ruby-rubygems_3.2.5-2_all.deb",
+        sha256 = "2f0cd98257fb60f4cea9fee0361b01278a7e97f42e078913739bbf0e6b7b0023",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/rubygems/ruby-rubygems_3.2.5-2_all.deb"],
+    )
+    http_file(
+        name = "amd64_debian11_ruby-test-unit",
+        downloaded_file_path = "ruby-test-unit_3.3.9-1_all.deb",
+        sha256 = "65a4e35b7eb4348094301db9b77b3be368ba65a95e14ef127e4394831e73293d",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-test-unit/ruby-test-unit_3.3.9-1_all.deb"],
+    )
+    http_file(
+        name = "amd64_debian11_ruby-xmlrpc",
+        downloaded_file_path = "ruby-xmlrpc_0.3.0-2_all.deb",
+        sha256 = "09606c91eb7be0bbd5e66a4a9e7fc473726fd699b010551e084f89c9c544a428",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-xmlrpc/ruby-xmlrpc_0.3.0-2_all.deb"],
+    )
+    http_file(
+        name = "amd64_debian11_ruby2.7",
+        downloaded_file_path = "ruby2.7_2.7.4-1_amd64.deb",
+        sha256 = "ebc6dc329373ce5881ba4b8b899c537b23a79ce457515decfe2a10d99378a66a",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby2.7/ruby2.7_2.7.4-1_amd64.deb"],
+    )
+    http_file(
+        name = "amd64_debian11_rubygems-integration",
+        downloaded_file_path = "rubygems-integration_1.18_all.deb",
+        sha256 = "8a0f590154c7d2239a84434093096c3ac60ad88fb2b4fbd89a67c2fd20ed7328",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/rubygems-integration/rubygems-integration_1.18_all.deb"],
     )
     http_file(
         name = "amd64_debian11_tzdata",
@@ -765,6 +1005,12 @@ def repositories():
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/b/base-files/base-files_10.3+deb10u11_arm64.deb"],
     )
     http_file(
+        name = "arm64_debian10_bundler",
+        downloaded_file_path = "bundler_1.17.3-3+deb10u1_all.deb",
+        sha256 = "9f41f68fc9d8a117ef0cdcbf177aca1965dfccf330519a9281808941e65cc17b",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/b/bundler/bundler_1.17.3-3+deb10u1_all.deb"],
+    )
+    http_file(
         name = "arm64_debian10_ca-certificates",
         downloaded_file_path = "ca-certificates_20200601~deb10u2_all.deb",
         sha256 = "a9e267a24088c793a9cf782455fd344db5fdced714f112a8857c5bfd07179387",
@@ -843,10 +1089,28 @@ def repositories():
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/g/gcc-8/libgcc1_8.3.0-6_arm64.deb"],
     )
     http_file(
+        name = "arm64_debian10_libgdbm-compat4",
+        downloaded_file_path = "libgdbm-compat4_1.18.1-4_arm64.deb",
+        sha256 = "775332b46c3a397b2e11bf04cbf6812b2812ccef9cbd4e29d1c6cfcb0bb708bc",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/g/gdbm/libgdbm-compat4_1.18.1-4_arm64.deb"],
+    )
+    http_file(
+        name = "arm64_debian10_libgdbm6",
+        downloaded_file_path = "libgdbm6_1.18.1-4_arm64.deb",
+        sha256 = "e3ff9c404c776d58c71786095ad175624f3ca369879c6b9ab6bc753d48db5e75",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/g/gdbm/libgdbm6_1.18.1-4_arm64.deb"],
+    )
+    http_file(
         name = "arm64_debian10_libglib2.0-0",
         downloaded_file_path = "libglib2.0-0_2.58.3-2+deb10u3_arm64.deb",
         sha256 = "011943577b494c84a0fcdfc97c86847a67cf626131a45789e80792d33dc834fb",
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/g/glib2.0/libglib2.0-0_2.58.3-2+deb10u3_arm64.deb"],
+    )
+    http_file(
+        name = "arm64_debian10_libgmp10",
+        downloaded_file_path = "libgmp10_6.1.2+dfsg-4_arm64.deb",
+        sha256 = "156a692af1292a50d3583691f97eb547a845c8b2b6859b4b822b2b12dde2af99",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/g/gmp/libgmp10_6.1.2+dfsg-4_arm64.deb"],
     )
     http_file(
         name = "arm64_debian10_libgomp1",
@@ -891,6 +1155,12 @@ def repositories():
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/m/mpdecimal/libmpdec2_2.4.2-2_arm64.deb"],
     )
     http_file(
+        name = "arm64_debian10_libncurses6",
+        downloaded_file_path = "libncurses6_6.1+20181013-2+deb10u2_arm64.deb",
+        sha256 = "0e5bfc729574c6d1898eba444e19528afcf940d1c68a8295c0fe13e677fbdbfb",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/n/ncurses/libncurses6_6.1+20181013-2+deb10u2_arm64.deb"],
+    )
+    http_file(
         name = "arm64_debian10_libncursesw6",
         downloaded_file_path = "libncursesw6_6.1+20181013-2+deb10u2_arm64.deb",
         sha256 = "da4dc6c68aecff023f614ce84355291486b72068e6e0bf7b27d16b78361b162b",
@@ -927,6 +1197,12 @@ def repositories():
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/readline/libreadline7_7.0-5_arm64.deb"],
     )
     http_file(
+        name = "arm64_debian10_libruby2.5",
+        downloaded_file_path = "libruby2.5_2.5.5-3+deb10u3_arm64.deb",
+        sha256 = "49f1f75b60d00dd85585b56fc70ace3408a95a07bbd06d641f9a25e4f814cf8a",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby2.5/libruby2.5_2.5.5-3+deb10u3_arm64.deb"],
+    )
+    http_file(
         name = "arm64_debian10_libsqlite3-0",
         downloaded_file_path = "libsqlite3-0_3.27.2-3+deb10u1_arm64.deb",
         sha256 = "986a89ba0b20c24925c7dbeeafeb1fdc6d696971e060a15fb1abd150821d9cf0",
@@ -955,6 +1231,12 @@ def repositories():
         downloaded_file_path = "libuuid1_2.33.1-0.1_arm64.deb",
         sha256 = "28d3a69bae1bdc9185e70d97214773a563a7f8a72682b2deef394a4f7c9c79b8",
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/u/util-linux/libuuid1_2.33.1-0.1_arm64.deb"],
+    )
+    http_file(
+        name = "arm64_debian10_libyaml-0-2",
+        downloaded_file_path = "libyaml-0-2_0.2.1-1_arm64.deb",
+        sha256 = "b0e5a10b899e9db607d34e4e8e20652537c559383217ffbc0568023768d3f9ea",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/liby/libyaml/libyaml-0-2_0.2.1-1_arm64.deb"],
     )
     http_file(
         name = "arm64_debian10_mime-support",
@@ -999,10 +1281,94 @@ def repositories():
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/p/python3.7/python3.7-minimal_3.7.3-2+deb10u3_arm64.deb"],
     )
     http_file(
+        name = "arm64_debian10_rake",
+        downloaded_file_path = "rake_12.3.1-3+deb10u1_all.deb",
+        sha256 = "d0d00f9929ed2e5e06a87150575772b2e364f2c9a7f8551666b0e11a3cacab98",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/rake/rake_12.3.1-3+deb10u1_all.deb"],
+    )
+    http_file(
         name = "arm64_debian10_readline-common",
         downloaded_file_path = "readline-common_7.0-5_all.deb",
         sha256 = "153d8a5ddb04044d10f877a8955d944612ec9035f4c73eec99d85a92c3816712",
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/readline/readline-common_7.0-5_all.deb"],
+    )
+    http_file(
+        name = "arm64_debian10_ruby",
+        downloaded_file_path = "ruby_2.5.1_arm64.deb",
+        sha256 = "6e7e3c0a5af11b430c345673f0a1099d84042d05a2e767613e3dee84369af8d2",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-defaults/ruby_2.5.1_arm64.deb"],
+    )
+    http_file(
+        name = "arm64_debian10_ruby-bundler",
+        downloaded_file_path = "ruby-bundler_1.17.3-3+deb10u1_all.deb",
+        sha256 = "c913748debd68d6bf4188eab051cdc670e095ed8f9b03b05952dd6a8fec7a45b",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/b/bundler/ruby-bundler_1.17.3-3+deb10u1_all.deb"],
+    )
+    http_file(
+        name = "arm64_debian10_ruby-did-you-mean",
+        downloaded_file_path = "ruby-did-you-mean_1.2.1-1_all.deb",
+        sha256 = "4ef1c4062093f165d8bfd65ad542f55a4104a04c60d17d3891ce5c3b61c91fa1",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-did-you-mean/ruby-did-you-mean_1.2.1-1_all.deb"],
+    )
+    http_file(
+        name = "arm64_debian10_ruby-minitest",
+        downloaded_file_path = "ruby-minitest_5.11.3-1_all.deb",
+        sha256 = "54e8b16c8809b1c516c9e9167c71021b02654285324bd4177dfc04841893bd80",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-minitest/ruby-minitest_5.11.3-1_all.deb"],
+    )
+    http_file(
+        name = "arm64_debian10_ruby-molinillo",
+        downloaded_file_path = "ruby-molinillo_0.6.4-1_all.deb",
+        sha256 = "c4a8695e3afb48e4d175519da990a6e27922a0fe96b7039dd71000506f6d07c5",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-molinillo/ruby-molinillo_0.6.4-1_all.deb"],
+    )
+    http_file(
+        name = "arm64_debian10_ruby-net-http-persistent",
+        downloaded_file_path = "ruby-net-http-persistent_2.9.4-2_all.deb",
+        sha256 = "e195429a802483b78bc39ed563dbfbcc09cba0fdfc95ea7b0a63b9bb49ed5fee",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-net-http-persistent/ruby-net-http-persistent_2.9.4-2_all.deb"],
+    )
+    http_file(
+        name = "arm64_debian10_ruby-net-telnet",
+        downloaded_file_path = "ruby-net-telnet_0.1.1-2_all.deb",
+        sha256 = "a9f5123e22f32ca9cfef25d7087d347664701e2a80ab335c68e8fe6e73d956a9",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-net-telnet/ruby-net-telnet_0.1.1-2_all.deb"],
+    )
+    http_file(
+        name = "arm64_debian10_ruby-power-assert",
+        downloaded_file_path = "ruby-power-assert_1.1.1-1_all.deb",
+        sha256 = "2a4c2cc67a7af752642e661f7bf34dbc86e46a297033cbeabb5d1fafda01c481",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-power-assert/ruby-power-assert_1.1.1-1_all.deb"],
+    )
+    http_file(
+        name = "arm64_debian10_ruby-test-unit",
+        downloaded_file_path = "ruby-test-unit_3.2.8-1_all.deb",
+        sha256 = "2cd46b3669381956382d8eb553e4e440aa1eee8652e7e4804af9994a49577633",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-test-unit/ruby-test-unit_3.2.8-1_all.deb"],
+    )
+    http_file(
+        name = "arm64_debian10_ruby-thor",
+        downloaded_file_path = "ruby-thor_0.19.4-1_all.deb",
+        sha256 = "7f0aa5c74cffe92bfa4ee8e855e25f27459b7659b095a80dd29b449a676e343b",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-thor/ruby-thor_0.19.4-1_all.deb"],
+    )
+    http_file(
+        name = "arm64_debian10_ruby-xmlrpc",
+        downloaded_file_path = "ruby-xmlrpc_0.3.0-2_all.deb",
+        sha256 = "09606c91eb7be0bbd5e66a4a9e7fc473726fd699b010551e084f89c9c544a428",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-xmlrpc/ruby-xmlrpc_0.3.0-2_all.deb"],
+    )
+    http_file(
+        name = "arm64_debian10_ruby2.5",
+        downloaded_file_path = "ruby2.5_2.5.5-3+deb10u3_arm64.deb",
+        sha256 = "d3c3a95a6eb558b631e8bc4e9495f95192edcbf476c7c29893058d143dd0f361",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby2.5/ruby2.5_2.5.5-3+deb10u3_arm64.deb"],
+    )
+    http_file(
+        name = "arm64_debian10_rubygems-integration",
+        downloaded_file_path = "rubygems-integration_1.11+deb10u1_all.deb",
+        sha256 = "f80b8400fcbaf6f670ff9f12e13263d88a32de206b15875de14883c1cf035475",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/rubygems-integration/rubygems-integration_1.11+deb10u1_all.deb"],
     )
     http_file(
         name = "arm64_debian10_tzdata",
@@ -1021,6 +1387,12 @@ def repositories():
         downloaded_file_path = "base-files_11.1+deb11u2_arm64.deb",
         sha256 = "1abb1218c99ffefaa54d2cb58b73f24bb428ae6ad33dd4a7a69223481853df8e",
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/b/base-files/base-files_11.1+deb11u2_arm64.deb"],
+    )
+    http_file(
+        name = "arm64_debian11_bundler",
+        downloaded_file_path = "bundler_2.2.5-2_all.deb",
+        sha256 = "9722c545938e8b50c9eeb4735dce432b08d3935f58f9f17131cb1bb4fa37ca4f",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/rubygems/bundler_2.2.5-2_all.deb"],
     )
     http_file(
         name = "arm64_debian11_ca-certificates",
@@ -1051,6 +1423,12 @@ def repositories():
         downloaded_file_path = "libbrotli1_1.0.9-2+b2_arm64.deb",
         sha256 = "52ca7f90de6cb6576a0a5cf5712fc4ae7344b79c44b8a1548087fd5d92bf1f64",
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/b/brotli/libbrotli1_1.0.9-2+b2_arm64.deb"],
+    )
+    http_file(
+        name = "arm64_debian11_libbsd0",
+        downloaded_file_path = "libbsd0_0.11.3-1_arm64.deb",
+        sha256 = "b6e7fa54a05e5a3a5e1ec5dceb57a470e9a0883081594aea643ca58264071e7a",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/libb/libbsd/libbsd0_0.11.3-1_arm64.deb"],
     )
     http_file(
         name = "arm64_debian11_libbz2-1.0",
@@ -1089,6 +1467,12 @@ def repositories():
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/d/db5.3/libdb5.3_5.3.28+dfsg1-0.8_arm64.deb"],
     )
     http_file(
+        name = "arm64_debian11_libedit2",
+        downloaded_file_path = "libedit2_3.1-20191231-2+b1_arm64.deb",
+        sha256 = "43cbfd69ef591a66cfd06aedf930e3fc3c370b3a7ad514a33399d0e1a4d7343e",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/libe/libedit/libedit2_3.1-20191231-2+b1_arm64.deb"],
+    )
+    http_file(
         name = "arm64_debian11_libexpat1",
         downloaded_file_path = "libexpat1_2.2.10-2_arm64.deb",
         sha256 = "b78b5634cf2826451fbf453039fdbcc91fff62cc3fc51c839537b013f3abc2ac",
@@ -1119,10 +1503,28 @@ def repositories():
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/g/gcc-10/libgcc-s1_10.2.1-6_arm64.deb"],
     )
     http_file(
+        name = "arm64_debian11_libgdbm-compat4",
+        downloaded_file_path = "libgdbm-compat4_1.19-2_arm64.deb",
+        sha256 = "0853cc0b0f92784b7fbd193d737c63b1d95f932e2b95dc1bb10c273e01a0f754",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/g/gdbm/libgdbm-compat4_1.19-2_arm64.deb"],
+    )
+    http_file(
+        name = "arm64_debian11_libgdbm6",
+        downloaded_file_path = "libgdbm6_1.19-2_arm64.deb",
+        sha256 = "97a88c2698bd836d04e51ad70c76826850857869b51e90b5343621ba30bbf525",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/g/gdbm/libgdbm6_1.19-2_arm64.deb"],
+    )
+    http_file(
         name = "arm64_debian11_libglib2.0-0",
         downloaded_file_path = "libglib2.0-0_2.66.8-1_arm64.deb",
         sha256 = "667d1b891bcf9b8cc47385c19b39271c74f48fd2b6b457474184f85ce63ea261",
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/g/glib2.0/libglib2.0-0_2.66.8-1_arm64.deb"],
+    )
+    http_file(
+        name = "arm64_debian11_libgmp10",
+        downloaded_file_path = "libgmp10_6.2.1+dfsg-1+deb11u1_arm64.deb",
+        sha256 = "d52619b6ff8829aa5424dfe3189dd05f22118211e69273e9576030584ffcce80",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/g/gmp/libgmp10_6.2.1+dfsg-1+deb11u1_arm64.deb"],
     )
     http_file(
         name = "arm64_debian11_libgomp1",
@@ -1239,6 +1641,12 @@ def repositories():
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/readline/libreadline8_8.1-1_arm64.deb"],
     )
     http_file(
+        name = "arm64_debian11_libruby2.7",
+        downloaded_file_path = "libruby2.7_2.7.4-1_arm64.deb",
+        sha256 = "38a5c4df63f19e32c6f2d21dcd5f1f21c273dffd1515be8dec9c75cb83f46b60",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby2.7/libruby2.7_2.7.4-1_arm64.deb"],
+    )
+    http_file(
         name = "arm64_debian11_libsqlite3-0",
         downloaded_file_path = "libsqlite3-0_3.34.1-3_arm64.deb",
         sha256 = "1e33cd39dc4fff2a7edd7bb7e90a71e20fb528f6a581fe0287652e4dae77e0d0",
@@ -1273,6 +1681,12 @@ def repositories():
         downloaded_file_path = "libuuid1_2.36.1-8+deb11u1_arm64.deb",
         sha256 = "3d677da6a22e9cac519fed5a2ed5b20a4217f51ca420fce57434b5e813c26e03",
         urls = ["https://snapshot.debian.org/archive/debian-security/20220125T132258Z/pool/updates/main/u/util-linux/libuuid1_2.36.1-8+deb11u1_arm64.deb"],
+    )
+    http_file(
+        name = "arm64_debian11_libyaml-0-2",
+        downloaded_file_path = "libyaml-0-2_0.2.2-1_arm64.deb",
+        sha256 = "84cb849b4475b7d0238d1f100ba3e3f29f7149258b273ba30b981aba2be03635",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/liby/libyaml/libyaml-0-2_0.2.2-1_arm64.deb"],
     )
     http_file(
         name = "arm64_debian11_netbase",
@@ -1321,6 +1735,72 @@ def repositories():
         downloaded_file_path = "python3.9-minimal_3.9.2-1_arm64.deb",
         sha256 = "bc0d0ed39ebc066020c3a16afdab4fd3e0260b41ae799273531d5b2403ae7b27",
         urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/p/python3.9/python3.9-minimal_3.9.2-1_arm64.deb"],
+    )
+    http_file(
+        name = "arm64_debian11_rake",
+        downloaded_file_path = "rake_13.0.3-1_all.deb",
+        sha256 = "c3cae0f213004ab8090ed9a71b30c13cf215920095fa92018569e95b28448520",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/rake/rake_13.0.3-1_all.deb"],
+    )
+    http_file(
+        name = "arm64_debian11_ruby",
+        downloaded_file_path = "ruby_2.7+2_arm64.deb",
+        sha256 = "ed5921e0f85ab65fcea12d0e67c065b80c186dfd702bbf3b33d4606fd8c68b40",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-defaults/ruby_2.7+2_arm64.deb"],
+    )
+    http_file(
+        name = "arm64_debian11_ruby-bundler",
+        downloaded_file_path = "ruby-bundler_2.2.5-2_all.deb",
+        sha256 = "5360adb16097acfa0c7754aa44a88824ef8d9b4856d33bfaae5eb9d22f272dd0",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/rubygems/ruby-bundler_2.2.5-2_all.deb"],
+    )
+    http_file(
+        name = "arm64_debian11_ruby-minitest",
+        downloaded_file_path = "ruby-minitest_5.13.0-1_all.deb",
+        sha256 = "beeaebe2840ee4279fab78b244453387c647b67ce4e44ceb6f17ea9195b06896",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-minitest/ruby-minitest_5.13.0-1_all.deb"],
+    )
+    http_file(
+        name = "arm64_debian11_ruby-net-telnet",
+        downloaded_file_path = "ruby-net-telnet_0.1.1-2_all.deb",
+        sha256 = "a9f5123e22f32ca9cfef25d7087d347664701e2a80ab335c68e8fe6e73d956a9",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-net-telnet/ruby-net-telnet_0.1.1-2_all.deb"],
+    )
+    http_file(
+        name = "arm64_debian11_ruby-power-assert",
+        downloaded_file_path = "ruby-power-assert_1.1.7-2_all.deb",
+        sha256 = "26658036ed5512d467d45c28957f4fbdf12b96b526628e3f00bf3a85198c7baa",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-power-assert/ruby-power-assert_1.1.7-2_all.deb"],
+    )
+    http_file(
+        name = "arm64_debian11_ruby-rubygems",
+        downloaded_file_path = "ruby-rubygems_3.2.5-2_all.deb",
+        sha256 = "2f0cd98257fb60f4cea9fee0361b01278a7e97f42e078913739bbf0e6b7b0023",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/rubygems/ruby-rubygems_3.2.5-2_all.deb"],
+    )
+    http_file(
+        name = "arm64_debian11_ruby-test-unit",
+        downloaded_file_path = "ruby-test-unit_3.3.9-1_all.deb",
+        sha256 = "65a4e35b7eb4348094301db9b77b3be368ba65a95e14ef127e4394831e73293d",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-test-unit/ruby-test-unit_3.3.9-1_all.deb"],
+    )
+    http_file(
+        name = "arm64_debian11_ruby-xmlrpc",
+        downloaded_file_path = "ruby-xmlrpc_0.3.0-2_all.deb",
+        sha256 = "09606c91eb7be0bbd5e66a4a9e7fc473726fd699b010551e084f89c9c544a428",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby-xmlrpc/ruby-xmlrpc_0.3.0-2_all.deb"],
+    )
+    http_file(
+        name = "arm64_debian11_ruby2.7",
+        downloaded_file_path = "ruby2.7_2.7.4-1_arm64.deb",
+        sha256 = "f30f313575b4af962a40d28a35cf5f528f84d62672b86f9697ab0ab5c5338235",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/ruby2.7/ruby2.7_2.7.4-1_arm64.deb"],
+    )
+    http_file(
+        name = "arm64_debian11_rubygems-integration",
+        downloaded_file_path = "rubygems-integration_1.18_all.deb",
+        sha256 = "8a0f590154c7d2239a84434093096c3ac60ad88fb2b4fbd89a67c2fd20ed7328",
+        urls = ["https://snapshot.debian.org/archive/debian/20220125T033125Z/pool/main/r/rubygems-integration/rubygems-integration_1.18_all.deb"],
     )
     http_file(
         name = "arm64_debian11_tzdata",
