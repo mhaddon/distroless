@@ -217,7 +217,7 @@ JAVA17.update({
 })
 
 RUBY = {
-    "gcr.io/{PROJECT_ID}/ruby:" + tag_base + "-" + arch: "//experimental/ruby:" + label + "_" + user + "_" + arch + "_debian9"
+    "{REGISTRY}/{PROJECT_ID}/ruby:" + tag_base + "-" + arch: "//experimental/ruby:" + label + "_" + user + "_" + arch + "_debian11"
     for arch in BASE_ARCHITECTURES
     for (tag_base, label, user) in [
         ("latest", "ruby", "root"),
@@ -228,7 +228,7 @@ RUBY = {
 }
 
 RUBY.update({
-    "gcr.io/{PROJECT_ID}/ruby-" + distro + ":" + tag_base + "-" + arch: "//experimental/ruby:" + label + "_" + user + "_" + arch + "_" + distro
+    "{REGISTRY}/{PROJECT_ID}/ruby-" + distro + ":" + tag_base + "-" + arch: "//experimental/ruby:" + label + "_" + user + "_" + arch + "_" + distro
     for arch in BASE_ARCHITECTURES
     for (tag_base, label, user) in [
         ("latest", "ruby", "root"),
